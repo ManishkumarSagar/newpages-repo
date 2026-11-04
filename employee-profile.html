@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- ============================================================
+  SEO META — replace bracketed values before publishing
+  Title kept under 60 characters, description 150–160 characters.
+============================================================= -->
+<title>[FULL NAME] – [JOB TITLE] at [COMPANY NAME]</title>
+<meta name="description" content="[FULL NAME] is a [JOB TITLE] at [COMPANY NAME] in [CITY, COUNTRY], specializing in [EXPERTISE 1] and [EXPERTISE 2] with [X] years of experience." />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://www.example.com/team/full-name-slug" /> <!-- REPLACE: canonical URL -->
+
+<!-- Open Graph -->
+<meta property="og:type" content="profile" />
+<meta property="og:title" content="[FULL NAME] – [JOB TITLE] at [COMPANY NAME]" />
+<meta property="og:description" content="[FULL NAME] is a [JOB TITLE] at [COMPANY NAME], specializing in [EXPERTISE 1], [EXPERTISE 2] and [EXPERTISE 3]." />
+<meta property="og:image" content="[IMAGE URL]" /> <!-- REPLACE: absolute image URL, min 1200x630 -->
+<meta property="og:url" content="https://www.example.com/team/full-name-slug" /> <!-- REPLACE -->
+<meta property="og:site_name" content="[COMPANY NAME]" />
+<meta property="profile:first_name" content="[FIRST NAME]" />
+<meta property="profile:last_name" content="[LAST NAME]" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="[FULL NAME] – [JOB TITLE] at [COMPANY NAME]" />
+<meta name="twitter:description" content="[X] years in [INDUSTRY], focused on [EXPERTISE 1] and [EXPERTISE 2]." />
+<meta name="twitter:image" content="[IMAGE URL]" /> <!-- REPLACE -->
+
+<!-- Preconnects for font performance -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+  /* ============================================================
+     DESIGN TOKENS — light orange, warm B2B palette
+     Base:    #FFF9F3  (warm paper background)
+     Surface: #FFFFFF  (card surface)
+     Ink:     #241B14  (warm near-black text, not pure black)
+     Muted:   #7A6C5D  (secondary text)
+     Orange:  #FF7A26  (primary accent — vivid light orange)
+     Orange-2:#FFB27A  (secondary accent, soft)
+     Line:    #F0DFCF  (hairline borders)
+     Tint:    #FFEEDD  (accent background tint)
+  ============================================================= */
+  :root{
+    --bg:#FFF9F3;
+    --surface:#FFFFFF;
+    --ink:#241B14;
+    --muted:#7A6C5D;
+    --orange:#FF7A26;
+    --orange-deep:#E0621A;
+    --orange-soft:#FFB27A;
+    --line:#F0DFCF;
+    --tint:#FFEEDD;
+    --focus:#B84B00;
+    --radius-sm:6px;
+    --radius-md:10px;
+    --max-w:1120px;
+    --font-display:'Fraunces', Georgia, serif;
+    --font-body:'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--font-body);
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  img{ max-width:100%; display:block; }
+
+  a{ color:var(--orange-deep); text-decoration-thickness:1.5px; text-underline-offset:3px; }
+  a:hover{ color:var(--ink); }
+
+  /* Visible keyboard focus states across all interactive elements */
+  a:focus-visible,
+  button:focus-visible,
+  summary:focus-visible{
+    outline:3px solid var(--focus);
+    outline-offset:3px;
+    border-radius:4px;
+  }
+
+  .visually-hidden{
+    position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+    overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+  }
+
+  .skip-link{
+    position:absolute; left:-999px; top:0; background:var(--ink); color:#fff;
+    padding:.75rem 1.25rem; z-index:100; border-radius:0 0 var(--radius-sm) 0;
+  }
+  .skip-link:focus{ left:0; }
+
+  .wrap{
+    max-width:var(--max-w);
+    margin:0 auto;
+    padding:0 1.5rem;
+  }
+
+  h1,h2,h3{
+    font-family:var(--font-display);
+    font-weight:600;
+    color:var(--ink);
+    line-height:1.15;
+    margin:0 0 .6em;
+  }
+  h1{ font-size:clamp(2rem, 4vw, 2.9rem); font-weight:500; }
+  h2{ font-size:clamp(1.5rem, 2.6vw, 2rem); }
+  h3{ font-size:1.15rem; font-weight:600; }
+  p{ margin:0 0 1em; color:var(--ink); max-width:70ch; }
+  .lede{ color:var(--muted); font-size:1.05rem; }
+
+  /* ---------- Header / Breadcrumb ---------- */
+  header.site-header{
+    border-bottom:1px solid var(--line);
+    background:var(--surface);
+    position:sticky; top:0; z-index:20;
+  }
+  .header-bar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:1rem 1.5rem; max-width:var(--max-w); margin:0 auto;
+  }
+  .brand{
+    font-family:var(--font-display); font-weight:600; font-size:1.1rem; color:var(--ink); text-decoration:none;
+  }
+  .header-nav a{
+    margin-left:1.5rem; font-size:.95rem; color:var(--ink); text-decoration:none; font-weight:500;
+  }
+  .header-nav a:hover{ color:var(--orange-deep); }
+
+  nav.breadcrumb{
+    background:var(--tint);
+    border-bottom:1px solid var(--line);
+  }
+  nav.breadcrumb ol{
+    list-style:none; display:flex; flex-wrap:wrap; gap:.4rem;
+    margin:0; padding:.65rem 1.5rem; max-width:var(--max-w); margin:0 auto;
+    font-size:.85rem; color:var(--muted);
+  }
+  nav.breadcrumb li{ display:flex; align-items:center; gap:.4rem; }
+  nav.breadcrumb li:not(:last-child)::after{ content:"/"; color:var(--orange-soft); }
+  nav.breadcrumb a{ color:var(--muted); text-decoration:none; }
+  nav.breadcrumb a:hover{ color:var(--orange-deep); }
+  nav.breadcrumb [aria-current="page"]{ color:var(--ink); font-weight:600; }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding:3.5rem 0 3rem;
+    border-bottom:1px solid var(--line);
+  }
+  .hero .wrap{
+    display:grid;
+    grid-template-columns:1.35fr .8fr;
+    gap:3rem;
+    align-items:center;
+  }
+  .hero-photo-frame{
+    position:relative;
+    border-radius:var(--radius-md);
+    overflow:hidden;
+    border:1px solid var(--line);
+    background:var(--tint);
+  }
+  .hero-photo-frame img{
+    width:100%; aspect-ratio:4/5; object-fit:cover;
+  }
+  .hero-eyebrow{
+    display:inline-flex; align-items:center; gap:.5rem;
+    font-size:.9rem; color:var(--orange-deep); font-weight:600; margin-bottom:.9rem;
+  }
+  .hero-eyebrow::before{
+    content:""; width:.5rem; height:.5rem; border-radius:50%; background:var(--orange);
+  }
+  .designation{
+    font-size:1.15rem; color:var(--ink); font-weight:600; margin:0 0 .25rem;
+  }
+  .designation .at{ color:var(--muted); font-weight:400; }
+  .meta-row{
+    display:flex; flex-wrap:wrap; gap:1.1rem; margin:0 0 1.4rem;
+    color:var(--muted); font-size:.95rem;
+  }
+  .meta-row span{ display:inline-flex; align-items:center; gap:.4rem; }
+
+  .cta-group{ display:flex; flex-wrap:wrap; gap:.9rem; margin-top:1.6rem; }
+  .btn{
+    display:inline-block; padding:.8rem 1.6rem; border-radius:var(--radius-sm);
+    font-weight:600; font-size:.95rem; text-decoration:none; border:1px solid transparent;
+    transition:background .15s ease, color .15s ease, border-color .15s ease;
+  }
+  .btn-primary{ background:var(--orange); color:#241205; }
+  .btn-primary:hover{ background:var(--orange-deep); color:#fff; }
+  .btn-secondary{ background:transparent; color:var(--ink); border-color:var(--ink); }
+  .btn-secondary:hover{ background:var(--ink); color:#fff; }
+
+  /* ---------- Sections ---------- */
+  section{ padding:3.2rem 0; border-bottom:1px solid var(--line); }
+  section:last-of-type{ border-bottom:none; }
+  .section-head{ max-width:62ch; margin-bottom:2rem; }
+  .section-head p{ color:var(--muted); }
+
+  /* About */
+  .about-grid{ display:grid; grid-template-columns:2fr 1fr; gap:2.5rem; }
+  .about-facts{
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius-md);
+    padding:1.5rem; align-self:start;
+  }
+  .about-facts dt{ font-size:.8rem; color:var(--muted); margin-top:1rem; }
+  .about-facts dt:first-child{ margin-top:0; }
+  .about-facts dd{ margin:.15rem 0 0; font-weight:600; }
+
+  /* Expertise cards */
+  .expertise-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem;
+  }
+  .expertise-card{
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius-md);
+    padding:1.5rem 1.4rem; border-top:3px solid var(--orange);
+  }
+  .expertise-card h3{ margin-bottom:.5rem; }
+  .expertise-card p{ color:var(--muted); font-size:.95rem; margin:0; }
+
+  /* Timeline */
+  .timeline{ list-style:none; margin:0; padding:0; border-left:2px solid var(--orange-soft); }
+  .timeline li{ position:relative; padding:0 0 2rem 1.75rem; }
+  .timeline li::before{
+    content:""; position:absolute; left:-7.5px; top:.35rem;
+    width:13px; height:13px; border-radius:50%; background:var(--orange); border:2px solid var(--bg);
+  }
+  .timeline li:last-child{ padding-bottom:0; }
+  .timeline .tl-date{ font-size:.85rem; color:var(--orange-deep); font-weight:600; }
+  .timeline .tl-role{ margin:.15rem 0 .3rem; font-family:var(--font-display); font-size:1.15rem; font-weight:600; }
+  .timeline .tl-org{ color:var(--muted); font-size:.9rem; margin-bottom:.4rem; }
+
+  /* Projects */
+  .project-list{ display:grid; gap:1.75rem; }
+  .project-card{
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius-md);
+    padding:1.75rem;
+    display:grid; grid-template-columns:1fr 2fr; gap:1.5rem;
+  }
+  .project-card h3{ margin-bottom:.3rem; }
+  .project-role{ color:var(--orange-deep); font-size:.9rem; font-weight:600; margin-bottom:.9rem; }
+  .tech-tags{ list-style:none; display:flex; flex-wrap:wrap; gap:.5rem; margin:0 0 1rem; padding:0; }
+  .tech-tags li{
+    background:var(--tint); color:var(--orange-deep); font-size:.78rem; font-weight:600;
+    padding:.3rem .65rem; border-radius:99px;
+  }
+  .project-detail dt{ font-size:.78rem; color:var(--muted); margin-top:.85rem; }
+  .project-detail dt:first-child{ margin-top:0; }
+  .project-detail dd{ margin:.2rem 0 0; }
+  .outcome{
+    margin-top:1rem; padding:.85rem 1rem; background:var(--tint); border-radius:var(--radius-sm);
+    font-weight:600; font-size:.92rem; color:var(--ink);
+  }
+
+  /* Articles */
+  .article-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; }
+  .article-card{ border:1px solid var(--line); border-radius:var(--radius-md); overflow:hidden; background:var(--surface); }
+  .article-card img{ width:100%; height:150px; object-fit:cover; background:var(--tint); }
+  .article-body{ padding:1.1rem 1.25rem 1.4rem; }
+  .article-body h3{ font-size:1.02rem; margin-bottom:.4rem; }
+  .article-body p{ color:var(--muted); font-size:.9rem; margin-bottom:.7rem; }
+  .article-body a{ font-size:.88rem; font-weight:600; text-decoration:none; }
+
+  /* Trust / social proof */
+  .trust-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; }
+  .trust-card{
+    display:flex; align-items:center; gap:.9rem;
+    border:1px solid var(--line); border-radius:var(--radius-md); padding:1.1rem 1.25rem;
+    background:var(--surface); text-decoration:none; color:var(--ink);
+  }
+  .trust-card:hover{ border-color:var(--orange); }
+  .trust-icon{
+    width:2.5rem; height:2.5rem; border-radius:50%; background:var(--tint);
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+    color:var(--orange-deep); font-weight:700; font-family:var(--font-display);
+  }
+  .trust-card .t-label{ font-weight:600; display:block; }
+  .trust-card .t-sub{ color:var(--muted); font-size:.83rem; }
+
+  /* FAQ */
+  .faq-list{ max-width:74ch; }
+  .faq-item{
+    border-bottom:1px solid var(--line); padding:1.1rem 0;
+  }
+  .faq-item summary{
+    cursor:pointer; font-weight:600; font-size:1.02rem; list-style:none;
+    display:flex; justify-content:space-between; align-items:center; gap:1rem;
+  }
+  .faq-item summary::-webkit-details-marker{ display:none; }
+  .faq-item summary::after{
+    content:"+"; font-size:1.3rem; color:var(--orange-deep); flex-shrink:0; font-family:var(--font-display);
+  }
+  .faq-item[open] summary::after{ content:"–"; }
+  .faq-item p{ margin-top:.7rem; color:var(--muted); }
+
+  /* Contact CTA */
+  .contact-cta{
+    background:var(--ink); color:#fff; border-radius:var(--radius-md);
+    padding:2.75rem; text-align:left;
+  }
+  .contact-cta h2{ color:#fff; }
+  .contact-cta p{ color:#E8DDD1; }
+  .contact-cta .btn-primary{ margin-top:.5rem; }
+
+  /* Footer */
+  footer.site-footer{
+    background:var(--tint); border-top:1px solid var(--line);
+    padding:2.5rem 0 1.5rem; margin-top:0;
+  }
+  .footer-grid{ display:flex; flex-wrap:wrap; justify-content:space-between; gap:1.5rem; margin-bottom:1.5rem; }
+  .footer-links{ list-style:none; display:flex; flex-wrap:wrap; gap:1.4rem; padding:0; margin:0; }
+  .footer-links a{ color:var(--ink); text-decoration:none; font-size:.9rem; }
+  .footer-links a:hover{ color:var(--orange-deep); }
+  .footer-bottom{ font-size:.82rem; color:var(--muted); border-top:1px solid var(--line); padding-top:1.25rem; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 860px){
+    .hero .wrap{ grid-template-columns:1fr; gap:2rem; }
+    .hero-photo-frame{ max-width:280px; }
+    .about-grid{ grid-template-columns:1fr; }
+    .expertise-grid{ grid-template-columns:1fr 1fr; }
+    .article-grid{ grid-template-columns:1fr 1fr; }
+    .trust-grid{ grid-template-columns:1fr; }
+    .project-card{ grid-template-columns:1fr; }
+  }
+  @media (max-width: 560px){
+    .expertise-grid, .article-grid{ grid-template-columns:1fr; }
+    .header-nav a:not(:last-child){ display:none; } /* keep header light on small screens */
+    .contact-cta{ padding:2rem 1.5rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ animation-duration:.001ms !important; transition-duration:.001ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skip to main content</a>
+
+<!-- ============================================================
+  HEADER
+============================================================= -->
+<header class="site-header">
+  <div class="header-bar">
+    <a class="brand" href="/">[COMPANY NAME]</a> <!-- INTERNAL LINK: company home -->
+    <nav class="header-nav" aria-label="Primary">
+      <a href="/about">About us</a> <!-- INTERNAL LINK: about page -->
+      <a href="/services">Services</a> <!-- INTERNAL LINK: services page -->
+      <a href="/team">Team</a> <!-- INTERNAL LINK: team directory -->
+      <a href="/contact">Contact</a> <!-- INTERNAL LINK: contact page -->
+    </nav>
+  </div>
+</header>
+
+<!-- ============================================================
+  1. BREADCRUMB NAVIGATION
+============================================================= -->
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol>
+    <li><a href="/">Home</a></li>
+    <li><a href="/team">Team</a></li> <!-- INTERNAL LINK: team directory -->
+    <li aria-current="page">[FULL NAME]</li>
+  </ol>
+</nav>
+
+<main id="main">
+
+  <!-- ============================================================
+    2. HERO PROFILE SECTION
+  ============================================================= -->
+  <section class="hero" aria-labelledby="profile-heading">
+    <div class="wrap">
+      <div class="hero-content">
+        <p class="hero-eyebrow">[INDUSTRY]</p>
+
+        <h1 id="profile-heading">[FULL NAME] – [JOB TITLE] at [COMPANY NAME]</h1>
+
+        <!-- AEO: direct factual answer — who, what, for whom, primary expertise -->
+        <p class="lede">
+          [FULL NAME] is a [JOB TITLE] at [COMPANY NAME] in [CITY, COUNTRY], working with clients and
+          teams in [INDUSTRY] on [EXPERTISE 1] and [EXPERTISE 2]. With [X] years of experience,
+          [FIRST NAME]'s primary focus is [EXPERTISE 3].
+        </p>
+
+        <p class="designation">[JOB TITLE] <span class="at">at [COMPANY NAME]</span></p>
+
+        <div class="meta-row">
+          <span><!-- location icon --> 📍 [CITY, COUNTRY]</span>
+          <span><!-- experience icon --> 🕘 [X] years of experience</span>
+        </div>
+
+        <div class="cta-group">
+          <a class="btn btn-primary" href="#contact">Contact [FIRST NAME]</a> <!-- REPLACE: contact URL -->
+          <a class="btn btn-secondary" href="#projects">View selected work</a>
+        </div>
+      </div>
+
+      <div class="hero-photo-frame">
+        <!-- Hero image: NOT lazy-loaded, uses high fetchpriority for LCP -->
+        <img
+          src="https://placehold.co/640x800/FFEEDD/E0621A?text=Profile+Photo"
+          alt="Portrait of [FULL NAME], [JOB TITLE] at [COMPANY NAME]"
+          width="640" height="800"
+          fetchpriority="high"
+        />
+        <!-- REPLACE: src above with a real, optimized (WebP/AVIF) portrait URL -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+    3. ABOUT SECTION
+  ============================================================= -->
+  <section id="about" aria-labelledby="about-heading">
+    <div class="wrap about-grid">
+      <div>
+        <div class="section-head">
+          <h2 id="about-heading">About [FIRST NAME]: background and focus areas</h2>
+        </div>
+        <!-- Original, factual professional biography — replace with real 2–3 sentence bio expanded slightly -->
+        <p>
+          [2–3 SENTENCE BIO — e.g. FULL NAME has spent X years in INDUSTRY, working across
+          EXPERTISE 1, EXPERTISE 2, and EXPERTISE 3. At COMPANY NAME, FIRST NAME partners with
+          product and engineering teams to deliver measurable outcomes for clients in CITY, COUNTRY
+          and beyond.]
+        </p>
+        <p>
+          [Optional second paragraph: describe how they approach their work, the kinds of problems
+          they solve, and the teams or clients they typically support. Keep this factual and specific
+          — avoid vague superlatives.]
+        </p>
+        <p>
+          Learn more about how [FIRST NAME]'s work fits into <a href="/services">[COMPANY NAME]'s services</a>
+          or read more on the <a href="/about">company's about page</a>. <!-- INTERNAL LINKS -->
+        </p>
+      </div>
+
+      <aside class="about-facts" aria-label="Quick facts">
+        <dl>
+          <dt>Current role</dt>
+          <dd>[JOB TITLE], [COMPANY NAME]</dd>
+          <dt>Industry</dt>
+          <dd>[INDUSTRY]</dd>
+          <dt>Location</dt>
+          <dd>[CITY, COUNTRY]</dd>
+          <dt>Experience</dt>
+          <dd>[X] years</dd>
+          <dt>Primary expertise</dt>
+          <dd>[EXPERTISE 1], [EXPERTISE 2], [EXPERTISE 3]</dd>
+        </dl>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ============================================================
+    4. CORE EXPERTISE
+  ============================================================= -->
+  <section id="expertise" aria-labelledby="expertise-heading">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="expertise-heading">Core areas of expertise</h2>
+        <p>The disciplines [FIRST NAME] is most often engaged for.</p>
+      </div>
+      <div class="expertise-grid">
+        <article class="expertise-card">
+          <h3>[EXPERTISE 1]</h3>
+          <p>[One or two sentences describing real, factual capability in this area — tools, methods, or outcomes typically delivered.]</p>
+        </article>
+        <article class="expertise-card">
+          <h3>[EXPERTISE 2]</h3>
+          <p>[One or two sentences describing real, factual capability in this area — tools, methods, or outcomes typically delivered.]</p>
+        </article>
+        <article class="expertise-card">
+          <h3>[EXPERTISE 3]</h3>
+          <p>[One or two sentences describing real, factual capability in this area — tools, methods, or outcomes typically delivered.]</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+    5. EXPERIENCE & CREDENTIALS TIMELINE
+  ============================================================= -->
+  <section id="experience" aria-labelledby="experience-heading">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="experience-heading">Experience and credentials</h2>
+        <p>A summary of [FIRST NAME]'s professional path and verifiable qualifications.</p>
+      </div>
+      <ol class="timeline">
+        <li>
+          <p class="tl-date">[YEAR–PRESENT]</p>
+          <p class="tl-role">[JOB TITLE]</p>
+          <p class="tl-org">[COMPANY NAME] · [CITY, COUNTRY]</p>
+          <p>[One or two sentences on current scope of responsibility, factual only.]</p>
+        </li>
+        <li>
+          <p class="tl-date">[YEAR–YEAR]</p>
+          <p class="tl-role">[PREVIOUS JOB TITLE]</p>
+          <p class="tl-org">[PREVIOUS COMPANY] · [CITY, COUNTRY]</p>
+          <p>[One or two sentences on scope and contribution in this role.]</p>
+        </li>
+        <li>
+          <p class="tl-date">[YEAR]</p>
+          <p class="tl-role">[CREDENTIAL / CERTIFICATION NAME]</p>
+          <p class="tl-org">[ISSUING ORGANIZATION]</p>
+          <p>[Optional: brief, factual note on the credential's scope.]</p>
+        </li>
+        <li>
+          <p class="tl-date">[YEAR]</p>
+          <p class="tl-role">[DEGREE / QUALIFICATION]</p>
+          <p class="tl-org">[INSTITUTION NAME]</p>
+          <p>[Optional: field of study.]</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============================================================
+    6. SELECTED PROJECTS / CASE STUDIES
+  ============================================================= -->
+  <section id="projects" aria-labelledby="projects-heading">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="projects-heading">Selected projects and case studies</h2>
+        <p>Representative work [FIRST NAME] contributed to, with real technologies and outcomes.</p>
+      </div>
+      <div class="project-list">
+
+        <article class="project-card">
+          <div>
+            <h3>[PROJECT NAME 1]</h3>
+            <p class="project-role">Role: [ROLE ON PROJECT]</p>
+            <ul class="tech-tags">
+              <li>[TECHNOLOGY A]</li>
+              <li>[TECHNOLOGY B]</li>
+              <li>[TECHNOLOGY C]</li>
+            </ul>
+            <a href="/projects/project-1-slug">View related project page</a> <!-- INTERNAL LINK: project page -->
+          </div>
+          <dl class="project-detail">
+            <dt>Challenge</dt>
+            <dd>[Concise, factual description of the problem being solved.]</dd>
+            <dt>Contribution</dt>
+            <dd>[Specific, verifiable description of what FIRST NAME actually did.]</dd>
+            <dt>Outcome</dt>
+            <dd class="outcome">[Measurable outcome where available, e.g. "Reduced processing time by 30% across two release cycles." Omit if not verifiable.]</dd>
+          </dl>
+        </article>
+
+        <article class="project-card">
+          <div>
+            <h3>[PROJECT NAME 2]</h3>
+            <p class="project-role">Role: [ROLE ON PROJECT]</p>
+            <ul class="tech-tags">
+              <li>[TECHNOLOGY A]</li>
+              <li>[TECHNOLOGY B]</li>
+            </ul>
+            <a href="/projects/project-2-slug">View related project page</a> <!-- INTERNAL LINK: project page -->
+          </div>
+          <dl class="project-detail">
+            <dt>Challenge</dt>
+            <dd>[Concise, factual description of the problem being solved.]</dd>
+            <dt>Contribution</dt>
+            <dd>[Specific, verifiable description of what FIRST NAME actually did.]</dd>
+            <dt>Outcome</dt>
+            <dd class="outcome">[Measurable outcome where available. Omit if not verifiable.]</dd>
+          </dl>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+    7. ARTICLES, INSIGHTS & PROFESSIONAL CONTRIBUTIONS
+  ============================================================= -->
+  <section id="insights" aria-labelledby="insights-heading">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="insights-heading">Articles and professional insights</h2>
+        <p>Writing and talks by [FIRST NAME] on [EXPERTISE 1] and related topics.</p>
+      </div>
+      <div class="article-grid">
+        <article class="article-card">
+          <img loading="lazy" src="https://placehold.co/400x150/FFEEDD/E0621A?text=Article+1" alt="Cover image for article: [ARTICLE TITLE 1]" width="400" height="150" /> <!-- REPLACE: src with real article cover image -->
+          <div class="article-body">
+            <h3>[ARTICLE TITLE 1]</h3>
+            <p>[One-sentence factual summary of the article's topic.]</p>
+            <a href="/blog/article-1-slug">Read the article</a> <!-- INTERNAL LINK: blog post -->
+          </div>
+        </article>
+        <article class="article-card">
+          <img loading="lazy" src="https://placehold.co/400x150/FFEEDD/E0621A?text=Article+2" alt="Cover image for article: [ARTICLE TITLE 2]" width="400" height="150" /> <!-- REPLACE: src with real article cover image -->
+          <div class="article-body">
+            <h3>[ARTICLE TITLE 2]</h3>
+            <p>[One-sentence factual summary of the article's topic.]</p>
+            <a href="/blog/article-2-slug">Read the article</a> <!-- INTERNAL LINK: blog post -->
+          </div>
+        </article>
+        <article class="article-card">
+          <img loading="lazy" src="https://placehold.co/400x150/FFEEDD/E0621A?text=Article+3" alt="Cover image for article: [ARTICLE TITLE 3]" width="400" height="150" /> <!-- REPLACE: src with real article cover image -->
+          <div class="article-body">
+            <h3>[ARTICLE TITLE 3]</h3>
+            <p>[One-sentence factual summary of the article's topic.]</p>
+            <a href="/blog/article-3-slug">Read the article</a> <!-- INTERNAL LINK: blog post -->
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+    8. TRUST & SOCIAL PROOF
+  ============================================================= -->
+  <section id="trust" aria-labelledby="trust-heading">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="trust-heading">Verify [FIRST NAME]'s profile</h2>
+        <p>Connect with [FIRST NAME] directly on the platforms below.</p>
+      </div>
+      <div class="trust-grid">
+        <a class="trust-card" href="#" rel="me noopener" target="_blank"> <!-- REPLACE: LinkedIn URL -->
+          <span class="trust-icon" aria-hidden="true">in</span>
+          <span>
+            <span class="t-label">LinkedIn</span>
+            <span class="t-sub">Professional profile</span>
+          </span>
+        </a>
+        <a class="trust-card" href="#" rel="me noopener" target="_blank"> <!-- REPLACE: GitHub/portfolio URL -->
+          <span class="trust-icon" aria-hidden="true">GH</span>
+          <span>
+            <span class="t-label">GitHub / Portfolio</span>
+            <span class="t-sub">Work samples</span>
+          </span>
+        </a>
+        <a class="trust-card" href="#contact"> <!-- REPLACE: contact URL -->
+          <span class="trust-icon" aria-hidden="true">@</span>
+          <span>
+            <span class="t-label">Direct contact</span>
+            <span class="t-sub">Email or contact form</span>
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+    9. FAQ SECTION
+  ============================================================= -->
+  <section id="faq" aria-labelledby="faq-heading">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="faq-heading">Frequently asked questions</h2>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>What does [FIRST NAME] do at [COMPANY NAME]?</summary>
+          <p>[FULL NAME] works as [JOB TITLE] at [COMPANY NAME], focusing on [EXPERTISE 1] and [EXPERTISE 2] for clients and teams in [INDUSTRY].</p>
+        </details>
+        <details class="faq-item">
+          <summary>How many years of experience does [FIRST NAME] have?</summary>
+          <p>[FIRST NAME] has [X] years of professional experience in [INDUSTRY], including [X-1] years focused specifically on [EXPERTISE 1].</p>
+        </details>
+        <details class="faq-item">
+          <summary>What kind of projects has [FIRST NAME] worked on?</summary>
+          <p>Recent work includes [PROJECT NAME 1] and [PROJECT NAME 2], covering [TECHNOLOGY A] and [TECHNOLOGY B]. See the <a href="#projects">selected projects</a> section above for details.</p>
+        </details>
+        <details class="faq-item">
+          <summary>How can I get in touch with [FIRST NAME]?</summary>
+          <p>You can reach [FIRST NAME] through the <a href="#contact">contact form</a>, or connect via <a href="#">LinkedIn</a>.</p> <!-- REPLACE: URLs -->
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+    10. CONTACT CTA
+  ============================================================= -->
+  <section id="contact" aria-labelledby="contact-heading">
+    <div class="wrap">
+      <div class="contact-cta">
+        <h2 id="contact-heading">Work with [FIRST NAME]</h2>
+        <p>For [EXPERTISE 1] or [EXPERTISE 2] enquiries, reach out directly and [FIRST NAME] will respond within [RESPONSE TIME, e.g. two business days].</p>
+        <a class="btn btn-primary" href="#contact">Get in touch</a> <!-- REPLACE: contact URL -->
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============================================================
+  11. FOOTER
+============================================================= -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <a class="brand" href="/">[COMPANY NAME]</a>
+      <ul class="footer-links">
+        <li><a href="/about">About us</a></li> <!-- INTERNAL LINK -->
+        <li><a href="/services">Services</a></li> <!-- INTERNAL LINK -->
+        <li><a href="/team">Team</a></li> <!-- INTERNAL LINK -->
+        <li><a href="/blog">Insights</a></li> <!-- INTERNAL LINK -->
+        <li><a href="/contact">Contact</a></li> <!-- INTERNAL LINK -->
+        <li><a href="/privacy">Privacy policy</a></li> <!-- INTERNAL LINK -->
+      </ul>
+    </div>
+    <p class="footer-bottom">© <span id="year"></span> [COMPANY NAME]. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- ============================================================
+  JSON-LD — Person + ProfilePage schema
+  Every field below is visible on the page above. Replace bracketed
+  values and remove alumniOf if not applicable.
+============================================================= -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "mainEntity": {
+    "@type": "Person",
+    "name": "[FULL NAME]",
+    "jobTitle": "[JOB TITLE]",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "[COMPANY NAME]",
+      "url": "https://www.example.com"
+    },
+    "url": "https://www.example.com/team/full-name-slug",
+    "image": "[IMAGE URL]",
+    "description": "[FULL NAME] is a [JOB TITLE] at [COMPANY NAME] in [CITY, COUNTRY], specializing in [EXPERTISE 1], [EXPERTISE 2] and [EXPERTISE 3] with [X] years of experience.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "[CITY]",
+      "addressCountry": "[COUNTRY]"
+    },
+    "sameAs": [
+      "[LINKEDIN URL]",
+      "[GITHUB OR PORTFOLIO URL]"
+    ],
+    "knowsAbout": ["[EXPERTISE 1]", "[EXPERTISE 2]", "[EXPERTISE 3]"],
+    "alumniOf": {
+      "@type": "CollegeOrUniversity",
+      "name": "[INSTITUTION NAME]"
+    }
+  }
+}
+</script>
+
+<!-- ============================================================
+  Minimal vanilla JS
+  - Dynamic footer year
+  - Ensures only one FAQ item is open at a time (progressive enhancement,
+    page fully works with native <details> if JS fails)
+============================================================= -->
+<script>
+  (function () {
+    "use strict";
+
+    var yearEl = document.getElementById("year");
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+    var faqItems = document.querySelectorAll(".faq-item");
+    faqItems.forEach(function (item) {
+      item.addEventListener("toggle", function () {
+        if (item.open) {
+          faqItems.forEach(function (other) {
+            if (other !== item) other.open = false;
+          });
+        }
+      });
+    });
+
+    /* REPLACE: analytics — load only after consent is granted, e.g.
+       <script async src="https://www.googletagmanager.com/gtag/js?id=[GA_MEASUREMENT_ID]"></script>
+       Do not hardcode analytics IDs in production without a consent check. */
+  })();
+</script>
+
+</body>
+</html>
